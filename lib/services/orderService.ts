@@ -78,32 +78,20 @@ export async function getOrderById(id: string) {
 
     const supabaseAny = supabase as any;
 
-    // Get order
-    const { data: order, error: orderError } = await supabaseAny
-      .from('orders')
-      .select('*')
-      .eq('id', id)
-      .single();
+    // Uses a security-definer function (see database/order_tracking_fix.sql)
+    // so anyone with the exact order ID can check its status, without
+    // needing to be logged in as that order's owner. It only ever returns
+    // status info for the single ID requested - never anyone else's data.
+    const { data, error } = await supabaseAny.rpc('get_order_tracking', {
+      p_order_id: id
+    });
 
-    if (orderError) throw orderError;
+    if (error) throw error;
 
+    const order = Array.isArray(data) ? data[0] : data;
     if (!order) return null;
 
-    // Get order items
-    const { data: orderItems, error: itemsError } = await supabaseAny
-      .from('order_items')
-      .select(`
-        *,
-        menu_item:menu_items(*)
-      `)
-      .eq('order_id', id);
-
-    if (itemsError) throw itemsError;
-
-    return {
-      order,
-      orderItems
-    };
+    return { order };
   } catch (error) {
     console.error('Error fetching order:', error);
     return null;

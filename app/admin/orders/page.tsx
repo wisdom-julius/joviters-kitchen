@@ -107,6 +107,50 @@ export default function OrderManagement() {
         </div>
       ) : (
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+          {/* Mobile Cards */}
+          <div className="md:hidden divide-y divide-gray-100">
+            {filteredOrders.length === 0 ? (
+              <div className="py-20 text-center text-gray-500">
+                <svg className="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                No orders found
+              </div>
+            ) : (
+              filteredOrders.map((order) => (
+                <div key={order.id} className="p-6">
+                  <div className="flex items-start justify-between mb-3">
+                    <div>
+                      <div className="font-serif font-semibold text-[#111111] text-lg">#{order.id.slice(0, 8).toUpperCase()}</div>
+                      <div className="text-xs text-gray-400 mt-1">{formatDate(order.created_at)}</div>
+                    </div>
+                    <span className="font-bold font-serif text-xl text-[#D4AF37]">₦{Number(order.total_amount).toLocaleString()}</span>
+                  </div>
+                  <div className="text-sm text-[#111111] font-medium">{order.customer_name}</div>
+                  <div className="text-xs text-gray-400 mt-1">{order.customer_phone}</div>
+                  <div className="text-xs text-gray-400 mt-1">{order.customer_address}</div>
+                  <div className="text-xs text-gray-500 font-medium capitalize mt-2">Payment: {order.payment_method}</div>
+                  <div className="flex items-center justify-between gap-3 mt-4">
+                    <span className={`px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wide ${statusConfig[order.status].bg} ${statusConfig[order.status].text}`}>
+                      {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                    </span>
+                    <select
+                      value={order.status}
+                      onChange={(e) => handleUpdateStatus(order.id, e.target.value as OrderStatus)}
+                      className="text-sm border-2 border-[#D4AF37]/30 hover:border-[#D4AF37] rounded-full px-4 py-2 focus:ring-0 focus:border-[#D4AF37] outline-none transition-all duration-300 bg-white flex-1 max-w-[160px]"
+                    >
+                      {statusSequence.map((status) => (
+                        <option key={status} value={status} className="text-gray-700">
+                          {status.charAt(0).toUpperCase() + status.slice(1)}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+
           {/* Desktop Table */}
           <div className="hidden md:block overflow-x-auto">
             <table className="w-full">
