@@ -1,3 +1,4 @@
+
 // 'use client'
 
 // import { useEffect, useState } from 'react'
@@ -120,7 +121,7 @@
 //       <div className="mb-10">
 //         <p className="text-[#D4AF37] text-sm tracking-[0.3em] uppercase mb-2 font-medium">ADMINISTRATION</p>
 //         <h1 className="text-3xl md:text-4xl font-serif font-bold text-[#111111]">Dashboard</h1>
-//         <p className="text-gray-500 mt-2">Welcome back! Here's what's happening in your restaurant today.</p>
+//         <p className="text-gray-500 mt-2">Welcome back! Here&apos;s what&apos;s happening in your restaurant today.</p>
 //       </div>
 
 //       {/* Stats Grid */}
@@ -253,8 +254,6 @@
 //     </div>
 //   )
 // }
-
-
 
 
 

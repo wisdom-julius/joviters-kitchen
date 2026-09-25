@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { getMenuItems } from '@/lib/services/menuService'
 import { MenuItem } from '@/types'
 import { MenuCard } from '@/components/MenuCard'
+import { HeroSlider } from '@/components/HeroSlider'
 
 export default function Home() {
   const [featuredItems, setFeaturedItems] = useState<MenuItem[]>([])
@@ -28,6 +29,7 @@ export default function Home() {
     <div className="flex flex-col">
       {/* Hero Section */}
       <section className="luxury-gradient text-white py-24 md:py-32 relative overflow-hidden">
+        <HeroSlider />
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-20 left-20 w-64 h-64 rounded-full bg-[#D4AF37] blur-3xl" />
           <div className="absolute bottom-20 right-20 w-80 h-80 rounded-full bg-[#D4AF37] blur-3xl" />
