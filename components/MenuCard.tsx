@@ -1,4 +1,3 @@
-
 'use client';
 
 import type { User } from '@supabase/supabase-js';
@@ -11,9 +10,10 @@ import { getSafeSession, onSafeAuthStateChange, supabase } from '@/lib/supabase'
 
 interface MenuCardProps {
   item: MenuItem;
+  priority?: boolean;
 }
 
-export function MenuCard({ item }: MenuCardProps) {
+export function MenuCard({ item, priority = false }: MenuCardProps) {
   const { addToCart } = useCart();
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
@@ -53,6 +53,8 @@ export function MenuCard({ item }: MenuCardProps) {
             src={item.image} 
             alt={item.name} 
             fill 
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+            priority={priority}
             className="object-cover transition-transform duration-700 group-hover:scale-105"
           />
         ) : (

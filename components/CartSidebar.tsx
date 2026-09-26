@@ -1,4 +1,3 @@
-
 'use client';
 
 import type { User } from '@supabase/supabase-js';
@@ -74,6 +73,7 @@ export function CartSidebar() {
                   src={cartItem.item.image} 
                   alt={cartItem.item.name} 
                   fill 
+                  sizes="96px"
                   className="object-cover"
                 />
               ) : (
