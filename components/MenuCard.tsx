@@ -1,3 +1,4 @@
+
 'use client';
 
 import type { User } from '@supabase/supabase-js';
@@ -46,13 +47,21 @@ export function MenuCard({ item }: MenuCardProps) {
 
   return (
     <div className="group bg-white rounded-2xl luxury-shadow-sm overflow-hidden hover:luxury-shadow transition-all duration-500 border border-transparent hover:border-[rgba(212,175,55,0.3)]">
-      <div className="relative h-64 w-full overflow-hidden">
-        <Image 
-          src={item.image} 
-          alt={item.name} 
-          fill 
-          className="object-cover transition-transform duration-700 group-hover:scale-105"
-        />
+      <div className="relative h-64 w-full overflow-hidden bg-[#F1ECE0]">
+        {item.image ? (
+          <Image 
+            src={item.image} 
+            alt={item.name} 
+            fill 
+            className="object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#F1ECE0] to-[#E5DCC8]">
+            <svg className="w-16 h-16 text-[#D4AF37]/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v18m0-18c-1.5 0-3 1-3 3.5S10.5 10 12 10s3-1 3-3.5S13.5 3 12 3zm6 6c0 3-1.5 5-3 5.5V21m-9-9c0 3 1.5 5 3 5.5V21" />
+            </svg>
+          </div>
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-[#111111]/60 to-transparent" />
         {!item.isAvailable && (
           <div className="absolute inset-0 bg-[#111111]/80 flex items-center justify-center">

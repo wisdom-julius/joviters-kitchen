@@ -1,15 +1,14 @@
+
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
-import { getHeroImages, HeroImage } from '@/lib/services/heroService'
+import { HeroImage } from '@/lib/services/heroService'
 
 const AUTO_ADVANCE_MS = 6000
 const TRANSITION_MS = 700
 
-export function HeroSlider() {
-  const [images, setImages] = useState<HeroImage[]>([])
-  const [isLoaded, setIsLoaded] = useState(false)
+export function HeroSlider({ images }: { images: HeroImage[] }) {
   // Index into the "extended" list below (real images plus one clone of the
   // last image at the start and one clone of the first at the end - this is
   // what makes the next/prev loop feel seamless instead of jumping backward
@@ -18,20 +17,6 @@ export function HeroSlider() {
   const [withTransition, setWithTransition] = useState(true)
   const autoTimerRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const snapTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-
-  useEffect(() => {
-    let cancelled = false
-    ;(async () => {
-      const data = await getHeroImages()
-      if (!cancelled) {
-        setImages(data)
-        setIsLoaded(true)
-      }
-    })()
-    return () => {
-      cancelled = true
-    }
-  }, [])
 
   const count = images.length
   const extended = count > 1 ? [images[count - 1], ...images, images[0]] : images
@@ -98,9 +83,9 @@ export function HeroSlider() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [count, index])
 
-  if (!isLoaded || count === 0) {
-    // No hero images configured yet - render nothing, so the section keeps
-    // its existing plain gradient background exactly as it was.
+  if (count === 0) {
+    // No hero images configured - render nothing so the caller can fall
+    // back to the video layer or the plain gradient background.
     return null
   }
 

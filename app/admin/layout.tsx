@@ -20,6 +20,7 @@
 //     { href: '/admin', label: 'Dashboard' },
 //     { href: '/admin/menu', label: 'Menu' },
 //     { href: '/admin/orders', label: 'Orders' },
+//     { href: '/admin/hero', label: 'Hero Background' },
 //   ]
 
 //   const handleLogout = async () => {
@@ -195,8 +196,6 @@
 
 
 
-
-
 'use client'
 
 import Link from 'next/link'
@@ -218,7 +217,7 @@ export default function AdminLayout({
     { href: '/admin', label: 'Dashboard' },
     { href: '/admin/menu', label: 'Menu' },
     { href: '/admin/orders', label: 'Orders' },
-    { href: '/admin/hero', label: 'Hero Images' },
+    { href: '/admin/hero', label: 'Hero Background' },
   ]
 
   const handleLogout = async () => {

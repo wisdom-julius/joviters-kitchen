@@ -1,3 +1,4 @@
+
 'use client';
 
 import type { User } from '@supabase/supabase-js';
@@ -67,13 +68,21 @@ export function CartSidebar() {
       <div className="max-h-[400px] overflow-y-auto">
         {cart.map((cartItem) => (
           <div key={cartItem.item.id} className="p-6 border-b border-[#E5E5E5] last:border-b-0 flex gap-5">
-            <div className="relative h-24 w-24 flex-shrink-0 rounded-xl overflow-hidden">
-              <Image 
-                src={cartItem.item.image} 
-                alt={cartItem.item.name} 
-                fill 
-                className="object-cover"
-              />
+            <div className="relative h-24 w-24 flex-shrink-0 rounded-xl overflow-hidden bg-[#F1ECE0]">
+              {cartItem.item.image ? (
+                <Image 
+                  src={cartItem.item.image} 
+                  alt={cartItem.item.name} 
+                  fill 
+                  className="object-cover"
+                />
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#F1ECE0] to-[#E5DCC8]">
+                  <svg className="w-8 h-8 text-[#D4AF37]/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v18m0-18c-1.5 0-3 1-3 3.5S10.5 10 12 10s3-1 3-3.5S13.5 3 12 3zm6 6c0 3-1.5 5-3 5.5V21m-9-9c0 3 1.5 5 3 5.5V21" />
+                  </svg>
+                </div>
+              )}
             </div>
             <div className="flex-1 min-w-0">
               <h4 className="font-serif font-semibold text-[#111111] mb-1">{cartItem.item.name}</h4>
